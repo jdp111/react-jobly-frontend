@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import Navbar from "./Navbar"
+import LoginForm from "./LoginForm"
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <Routes>
           <Route exact="true" path = '/'>
             </Route>
-            <Route exact="true" path = '/login'>
+            <Route exact="true" path = '/login' element={<LoginForm loggedIn = {auth} setLoggedIn = {setAuth} />}>
             </Route>
             <Route exact="true" path = '/register'>
             </Route>
