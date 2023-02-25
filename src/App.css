@@ -48,7 +48,7 @@
 }
 
 h3 {
-  margin-top: 10%;
+  margin-top: 8%;
   width: 100%;
   text-align: center;
 }
@@ -74,3 +74,13 @@ form{
   color: black;
   text-decoration: none;
 }
+
+.search-box{
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
