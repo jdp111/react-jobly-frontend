@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react"
 import JoblyApi from "../api"
 import { Card, CardBody, CardHeader } from "reactstrap";
 import SearchBar from "./SearchBar";
-import { useNavigate, NavLink} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 
-function Jobs({user}) {
+function Company({user}) {
+    const {handle}  = useParams()
     const [searchTerm, setSearchTerm] = useState("")
-    const [jobs, setJobs] = useState([])
+    const [company, setCompany] = useState({name:null, jobs:[]})
     const [applied, setApplied] = useState([])
     
     useEffect(()=>{
@@ -28,18 +29,18 @@ function Jobs({user}) {
     },[user])
 
     useEffect(()=>{
-        async function getJobs() {
-            const jobList = await JoblyApi.getJobs(searchTerm)
-            return jobList.jobs
+        async function getCompany() {
+            const Company = await JoblyApi.getCompany(handle)
+            return Company.company
         }
 
-        getJobs().then((res)=>{
-            setJobs(res);
+        getCompany().then((res)=>{
+            setCompany(res);
+            console.log(company)
         }).then(() =>{
-            const jobIds = jobs.map((job)=>(job.id))
+            const jobIds = company.jobs.map((job)=>(job.id))
             applied.forEach((id)=>{
                 if(jobIds.includes(id)){
-                    console.log("running the document changer")
                     const button = document.getElementsByName(id)[0]
                     button.disabled = true
                     button.innerText = "Applied"
@@ -54,26 +55,30 @@ function Jobs({user}) {
         const id = evt.target.name
         const apply = await JoblyApi.apply(user, id)
         setApplied((existing)=>{
-            console.log(existing,id)
            return [...existing,parseInt(id)]
 
         })
         
     }
 
-
     return (
         <div>
-            <h3>All Jobs</h3>
-            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-            
-            {jobs && jobs.map((job)=>(
+            <h3>{handle}</h3>
+            {company.name && (
+                <div>
+                <span>
+                    <small>number of employees:  {company.numEmployees}</small>
+                </span>
+                <p>{company.description}</p>
+                </div>
+            )}
+
+
+            {company.name && company.jobs.map((job)=>(
                 <Card key = {job.id} className="job" >
                     <CardHeader>
                     <h6>{job.title}</h6>
-                    <NavLink key = {job.id} className="jobnav" to={`/companies/${job.companyHandle}`}>
-                        <p>{job.companyName}</p>
-                    </NavLink>
+                    <p>{job.companyName}</p>
                     </CardHeader>
                     <CardBody className="container" >  
                     <div className="row">
@@ -107,4 +112,4 @@ function Jobs({user}) {
 
 }
 
-export default Jobs
+export default Company

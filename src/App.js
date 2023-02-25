@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from "react-router-dom";
+import JoblyApi from "./api";
 import './App.css';
 import Navbar from "./Navbar"
 import LoginForm from "./LoginForm"
 import HomePage from "./HomePage"
-import JoblyApi from "./api";
 import Register from "./Register"
 import UpdateUser from './UpdateUser';
 import Companies from './Careers/Companies';
 import Jobs from './Careers/Jobs';
+import Company from './Careers/Company';
 
 function App() {
   const defaultUser = {username:null,firstName:null, lastName:null, email:null}
@@ -48,8 +49,8 @@ function App() {
   }
   
   const update = async (newInfo) => {
-    const {username, firstName, lastName, email} = await JoblyApi.request(`users/${newInfo.username}`, newInfo, "patch")
-    setCurrentUser({username, firstName, lastName, email})
+    const { firstName, lastName, email} = await JoblyApi.request(`users/${currentUser.username}`, newInfo, "patch")
+    setCurrentUser({username: currentUser.username, firstName, lastName, email})
   }
 
   const logout = () => {
@@ -76,7 +77,7 @@ function App() {
             </Route>
           <Route exact="true" path = '/companies' element={<Companies/>}>
             </Route>
-          <Route path = '/companies/:handle'>
+          <Route path = '/companies/:handle' element = {<Company user = {currentUser.username} />}>
           </Route>
           <Route exact="true" path = '/jobs' element={<Jobs user={currentUser.username}/>}>
             </Route>

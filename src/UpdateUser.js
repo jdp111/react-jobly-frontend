@@ -3,18 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
 
-function UpdateUser({ update }) {
-    const User = {username:"", password:"", firstName:"", lastName:"",email:""}
+function UpdateUser({ update, user }) {
+    const User = { firstName: "", lastName:"",email:""}
     const history = useNavigate()
     const [userInfo,setUserInfo] = useState(User)
  
     
+
+
     const handleSubmit = async (evt) =>{
       console.log(userInfo)
       try{
           evt.preventDefault()
-          await update(userInfo)
-          history(`/`)}
+          await update(userInfo)}
       catch(e){
           console.log(e)
           return alert(e[0])
@@ -30,7 +31,7 @@ function UpdateUser({ update }) {
         ))
     }
     
-    const {username, password, firstName, lastName, email } = userInfo
+    const { firstName, lastName, email } = userInfo
     
     return (
     
@@ -41,7 +42,7 @@ function UpdateUser({ update }) {
           <form onSubmit={handleSubmit} >
             <br></br>
             <p>Username: </p>
-            <p>{username}</p>
+            <p>{user.username}</p>
             <br></br>
             <label htmlFor="firstName">First Name: </label>
             <input className="form-control" type="firstName" id="firstName" name="firstName" placeholder="ex. 'John'" value = {firstName} onChange={handleChange}></input>
@@ -53,7 +54,7 @@ function UpdateUser({ update }) {
             <input className="form-control" type="email" id="email" name="email" placeholder="ex. 'Jobly@jobly.job'" value = {email} onChange={handleChange}></input>
             
             <br></br>
-            <input type="submit" value="Sign up"></input>
+            <input type="submit" value="Update"></input>
           </form>
           </div>
         </CardBody>
