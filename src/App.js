@@ -8,6 +8,7 @@ import HomePage from "./HomePage"
 import JoblyApi from "./api";
 import Register from "./Register"
 import UpdateUser from './UpdateUser';
+import Companies from './Careers/Companies';
 
 function App() {
   const defaultUser = {username:null,firstName:null, lastName:null, email:null}
@@ -29,10 +30,6 @@ function App() {
   
   } effect()
   },[])
-
-  useEffect(() => {
-    
-  }, [token])
 
 
   const setDataOnLogin = async (userInfo, newToken) => {
@@ -82,7 +79,7 @@ function App() {
             </Route>
           <Route exact="true" path = '/register' element={<Register updateUser = {signup} />}>
             </Route>
-          <Route exact="true" path = '/companies'>
+          <Route exact="true" path = '/companies' element={<Companies/>}>
             </Route>
           <Route exact="true" path = '/jobs'>
             </Route>

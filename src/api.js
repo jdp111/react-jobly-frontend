@@ -33,6 +33,14 @@ class JoblyApi {
     return res.user
   }
 
+  static async getCompanies(nameLike = null){
+    let endpoint = "companies"
+    if (nameLike){
+      endpoint = `companies?name=${nameLike}`
+    }
+    let res = await this.request(endpoint)
+    return res
+  }
 
 }
 
