@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
-import JoblyApi from "./api";
 
-function NewItemForm({loggedIn, setLoggedIn}) {
+
+function NewItemForm({logIn}) {
     const history = useNavigate()
     const defaultLogin = {username:'', password:''}
     const [userInfo,setUserInfo] = useState(defaultLogin)
-  
+ 
     
     const handleSubmit = async (evt) =>{
         try{
             evt.preventDefault()
-            const token = await JoblyApi.request("auth/token", userInfo, "post")
-            JoblyApi.token = token.token
-            console.log("token", JoblyApi.token)
-            setLoggedIn(true)
+            console.log("yes")
+            await logIn(userInfo)
             history(`/`)}
         catch(e){
             setUserInfo(defaultLogin)
@@ -34,24 +32,23 @@ function NewItemForm({loggedIn, setLoggedIn}) {
     
     const {username, password } = userInfo
     return (
-    <section className="col-md-8">
-        {loggedIn && history("/")}
-        
+    
       <Card>
         <CardBody className="text-center">
             <h3>Login</h3>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="ex. 'coolguy111'" value = {username} onChange={handleChange}></input>
-            <br></br>
-            <label htmlFor="password">password:</label>
-            <input type="text" id="password" name="password" placeholder="ex. 'apple'" value = {password} onChange={handleChange}></input>
-            <br></br>
-            <input type="submit" value="submit"></input>
-          </form>
+            <div className="form-group">
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username: </label>
+                <input className="form-control" type="text" id="username" name="username" placeholder="ex. 'coolguy111'" value = {username} onChange={handleChange}></input>
+                <br></br>
+                <label htmlFor="password">password: </label>
+                <input className="form-control" type="password" id="password" name="password" placeholder="ex. 'apple'" value = {password} onChange={handleChange}></input>
+                <br></br>
+                <input className="btn btn-primary" type="submit" value="Log in"></input>
+            </form>
+            </div>
         </CardBody>
       </Card>
-    </section>
   );
 }
 

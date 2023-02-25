@@ -1,9 +1,10 @@
 import React from "react";
 import "./Navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
 
-function NavBar({loggedin}) {
+function NavBar({loggedin, logout}) {
+    const history = useNavigate()
   return (
     
     <div>
@@ -31,6 +32,21 @@ function NavBar({loggedin}) {
                                 <NavLink to="/companies">Companies</NavLink>
                             </NavItem>
                         </Nav>
+                    </li>
+                    <li className="nav-item">
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink to="/user">User Info</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </li>
+                    <li className="nav-item">
+                        <button className=" btn btn-dark btn-sm ml-auto" onClick={() => {
+                            console.log("logging out")
+                            logout()
+                            history('/') }}>
+                            Logout
+                        </button>
                     </li>
                 </ul>
             </div>
