@@ -42,6 +42,22 @@ class JoblyApi {
     return res
   }
 
+  static async getJobs(nameLike = null){
+    
+    let endpoint = 'jobs'
+    if(nameLike){
+      endpoint = `jobs?title=${nameLike}`
+    }
+    let res = await this.request(endpoint)
+    return res
+  }
+
+  static async apply(username,jobId){
+    let endpoint = `users/${username}/jobs/${jobId}`
+    let res = await this.request(endpoint, {},"post")
+    return res
+  }
+
 }
 
 export default JoblyApi;

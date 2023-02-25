@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink} from "react-router-dom";
 
-function HomePage({username, token}) {
+function HomePage({username}) {
     return(
     <div>
-        {token
+        {username
             ? <h3>Welcome to Jobly, {username}!</h3>
             :   <div>
                     <h3> Welcome to Jobly!</h3>
