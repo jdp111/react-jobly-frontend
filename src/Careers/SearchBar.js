@@ -1,11 +1,9 @@
-import { Card, CardBody, CardHeader } from "reactstrap";
-
 
 function SearchBar({searchTerm, setSearchTerm}) {
 
     // handles search term change on submit
     const handleChange = (evt)=>{
-        const {name, value} = evt.target
+        const { value} = evt.target
         setSearchTerm(value)
     }
 

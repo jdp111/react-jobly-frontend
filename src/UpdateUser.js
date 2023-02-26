@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
 
 function UpdateUser({ update, user }) {
     const User = { firstName: "", lastName:"",email:""}
-    const history = useNavigate()
     const [userInfo,setUserInfo] = useState(User)
  
     

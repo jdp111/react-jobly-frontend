@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import JoblyApi from "../api"
 import { Card, CardBody, CardHeader } from "reactstrap";
-import SearchBar from "./SearchBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 
 function Company({user}) {
     const {handle}  = useParams()
-    const [searchTerm, setSearchTerm] = useState("")
     const [company, setCompany] = useState({name:null, jobs:[]})
     const [applied, setApplied] = useState([])
     
@@ -36,7 +34,6 @@ function Company({user}) {
 
         getCompany().then((res)=>{
             setCompany(res);
-            console.log(company)
         }).then(() =>{
             const jobIds = company.jobs.map((job)=>(job.id))
             applied.forEach((id)=>{
@@ -48,7 +45,7 @@ function Company({user}) {
             })
         })
 
-    },[searchTerm,applied])
+    },[applied])
 
 
     const handleApply = async (evt)=>{

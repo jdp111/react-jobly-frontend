@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import JoblyApi from "../api"
 import { Card, CardBody, CardHeader } from "reactstrap";
 import SearchBar from "./SearchBar";
-import { useNavigate, NavLink} from "react-router-dom";
+import {  NavLink} from "react-router-dom";
 
 
 
@@ -52,7 +52,7 @@ function Jobs({user}) {
 
     const handleApply = async (evt)=>{
         const id = evt.target.name
-        const apply = await JoblyApi.apply(user, id)
+        await JoblyApi.apply(user, id)
         setApplied((existing)=>{
             console.log(existing,id)
            return [...existing,parseInt(id)]
