@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API_URL = "http://localhost:3001";
+const BASE_API_URL = "https://jobly-backend-production.up.railway.app/";
 
 
 class JoblyApi {
